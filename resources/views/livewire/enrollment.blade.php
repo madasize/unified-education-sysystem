@@ -3,7 +3,7 @@
 use function Livewire\Volt\{state, rules, action, computed};
 use App\Models\Student;
 
-state(['first_name' => '', 'last_name' => '', 'form' => 'Form 1', 'stream' => 'A', 'student_id' => '', 'search' => '']);
+state(['first_name' => '', 'last_name' => '', 'form' => 'Form 1', 'stream' => 'A', 'student_id' => '', 'search' => '', 'selected_form' => '']);
 
 rules([
     'first_name' => 'required|min:2',
@@ -13,9 +13,17 @@ rules([
 ]);
 
 $students = computed(function () {
-    return Student::where('first_name', 'like', '%' . $this->search . '%')
-        ->orWhere('last_name', 'like', '%' . $this->search . '%')
-        ->orWhere('student_id', 'like', '%' . $this->search . '%')
+    $query = Student::query();
+
+    if ($this->selected_form) {
+        $query->where('form', $this->selected_form);
+    }
+
+    return $query->where(function ($query) {
+            $query->where('first_name', 'like', '%' . $this->search . '%')
+                ->orWhere('last_name', 'like', '%' . $this->search . '%')
+                ->orWhere('student_id', 'like', '%' . $this->search . '%');
+        })
         ->orderBy('form', 'asc')
         ->orderBy('last_name', 'asc')
         ->paginate(10);
@@ -74,9 +82,21 @@ $remove = action(function ($id) {
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="p-6 border-b border-gray-50 flex justify-between items-center">
-            <h3 class="font-bold text-gray-800">Student Directory</h3>
-            <input wire:model.live="search" type="text" placeholder="Search by name or ID..." class="bg-gray-50 border-none rounded-lg text-sm w-64" />
+        <div class="p-6 border-b border-gray-50 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <h3 class="font-bold text-gray-800">Student Directory</h3>
+                <p class="text-sm text-gray-500">Filter students by class or search by name / ID.</p>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <select wire:model.live="selected_form" class="bg-gray-50 border-none rounded-lg text-sm px-4 py-3">
+                    <option value="">All Forms</option>
+                    <option value="Form 1">Form 1</option>
+                    <option value="Form 2">Form 2</option>
+                    <option value="Form 3">Form 3</option>
+                    <option value="Form 4">Form 4</option>
+                </select>
+                <input wire:model.live="search" type="text" placeholder="Search by name or ID..." class="bg-gray-50 border-none rounded-lg text-sm w-64 px-4 py-3" />
+            </div>
         </div>
         <table class="w-full text-left">
             <thead class="bg-gray-50 text-[10px] uppercase font-bold text-gray-400">
@@ -90,7 +110,7 @@ $remove = action(function ($id) {
             <tbody class="divide-y divide-gray-50 text-sm">
                 @foreach($this->students as $student)
                     <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-8 py-4 font-semibold text-gray-700">{{ $student->last_name }}, {{ $student->first_name }}</td>
+                        <td class="px-8 py-4 font-semibold text-gray-700">{{ $student->first_name }} {{ $student->last_name }}</td>
                         <td class="px-8 py-4"><span class="bg-emerald-50 text-emerald-700 px-2 py-1 rounded text-xs font-bold">{{ $student->form }}</span></td>
                         <td class="px-8 py-4 text-gray-400 font-mono">{{ $student->student_id }}</td>
                         <td class="px-8 py-4 text-right">

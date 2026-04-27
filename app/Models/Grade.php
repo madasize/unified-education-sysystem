@@ -23,8 +23,9 @@ class Grade extends Model
         'is_synced',
     ];
     protected $casts = [
-    'score' => 'float',
-];
+        'score' => 'float',
+        'is_synced' => 'boolean',
+    ];
 
     /**
      * Relationship: A grade belongs to a Teacher (User).

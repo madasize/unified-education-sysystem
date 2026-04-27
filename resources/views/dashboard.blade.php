@@ -25,7 +25,7 @@
                             Verify school-wide data, monitor teacher activity, and generate report cards.
                         @elseif(Auth::user()->role === 'cluster_head')
                             Oversee performance across multiple schools in your cluster.
-                        @elseif(Auth::user()->role === 'ministry')
+                        @elseif(Auth::user()->role === 'ministry_official')
                             Access national-level analytics and policy implementation data.
                         @endif
                     </p>
@@ -38,34 +38,49 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     
                     @if(Auth::user()->role === 'teacher')
-                        <x-action-card title="Resource Hub" desc="Upload lesson notes and syllabus." icon="book" link="#" />
+                        <x-action-card title="Resource Hub" desc="Upload lesson notes and syllabus." icon="book" :link="route('resource-hub')" />
                         <x-action-card title="Term Marks" desc="Enter and sync student marks." icon="grade" :link="route('gradebook')" />
-                        <x-action-card title="Innovation" desc="Submit ideas to the Ministry." icon="lightbulb" link="#" />
+                        <x-action-card title="Innovation" desc="Submit ideas to the Ministry." icon="lightbulb" :link="route('innovation')" />
                     
                     @elseif(Auth::user()->role === 'headteacher')
-                        <x-action-card title="Grade Approval" desc="Review and lock teacher-submitted marks." icon="check" link="#" />
-                        <x-action-card title="School Reports" desc="Generate and print digital report cards." icon="report" link="#" />
-                        <x-action-card title="User Management" desc="Manage teacher accounts and roles." icon="users" link="#" />
-                        <x-action-card 
-    title="School Reports" 
-    desc="Generate and print digital report cards." 
-    icon="report" 
-    :link="route('reports')" 
-/>
+                        <x-action-card title="Grade Approval" desc="Review and lock teacher-submitted marks." icon="check" :link="route('grade-approval')" />
+                        <x-action-card title="School Reports" desc="Generate and print digital report cards." icon="report" :link="route('reports')" />
+                        <x-action-card title="User Management" desc="Manage teacher accounts and roles." icon="users" :link="route('user-management')" />
 
                     @elseif(Auth::user()->role === 'cluster_head')
-                        <x-action-card title="Cluster Overview" desc="Compare performance across cluster schools." icon="chart" link="#" />
-                        <x-action-card title="Inspection" desc="Log and view school inspection reports." icon="search" link="#" />
-                        <x-action-card title="Resource Allocation" desc="Manage cluster-wide book/tool distribution." icon="truck" link="#" />
+                        <x-action-card title="Cluster Overview" desc="Compare performance across cluster schools." icon="chart" :link="route('cluster-overview')" />
+                        <x-action-card title="Inspection" desc="Log and view school inspection reports." icon="search" :link="route('inspection')" />
+                        <x-action-card title="Resource Allocation" desc="Manage cluster-wide book/tool distribution." icon="truck" :link="route('resource-allocation')" />
 
-                    @elseif(Auth::user()->role === 'ministry')
-                        <x-action-card title="National Analytics" desc="Big data view of national performance." icon="globe" link="#" />
-                        <x-action-card title="Policy Control" desc="Update syllabus and national requirements." icon="briefcase" link="#" />
-                        <x-action-card title="Funding" desc="Monitor school grants and financial data." icon="money" link="#" />
+                    @elseif(Auth::user()->role === 'ministry_official')
+                        <x-action-card title="National Analytics" desc="Big data view of national performance." icon="globe" :link="route('national-analytics')" />
+                        <x-action-card title="Policy Control" desc="Update syllabus and national requirements." icon="briefcase" :link="route('policy-control')" />
+                        <x-action-card title="Funding" desc="Monitor school grants and financial data." icon="money" :link="route('funding')" />
+                        <x-action-card title="Teacher Recommendations" desc="Review and approve teacher suggestions." icon="lightbulb" :link="route('teacher-recommendations')" />
+                        <x-action-card title="Educational Updates" desc="Send updates to headteachers." icon="send" :link="route('educational-updates')" />
                     @endif
 
                 </div>
             </div>
+
+            @if(Auth::user()->role === 'teacher')
+                <div class="bg-white shadow-sm border border-gray-100 rounded-3xl p-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Share Your Ideas</h3>
+                    @livewire('teacher.submit-recommendation')
+                </div>
+
+                <div class="bg-white shadow-sm border border-gray-100 rounded-3xl p-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Your Recommendation Status</h3>
+                    @livewire('teacher.view-recommendation-status')
+                </div>
+            @endif
+
+            @if(Auth::user()->role === 'headteacher')
+                <div class="bg-white shadow-sm border border-gray-100 rounded-3xl p-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Ministry Updates</h3>
+                    @livewire('headteacher.view-educational-updates')
+                </div>
+            @endif
         </div>
     </div>
 </x-app-layout>

@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\School;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
+use function Livewire\Volt\computed;
 use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;
@@ -18,13 +20,40 @@ state([
     'password' => '',
     'password_confirmation' => '',
     'role' => 'teacher',
+    'school_id' => null,
+    'verification_info' => '',
 ]);
+
+$schools = computed(fn() => School::all());
+
+rules([
+    'name' => ['required', 'string', 'max:255'],
+    'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+    'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+    'role' => ['required', 'string', 'in:teacher,cluster,headteacher,ministry'],
+    'school_id' => ['required_if:role,headteacher', 'nullable', 'exists:schools,id'],
+    'verification_info' => ['required_if:role,headteacher', 'nullable', 'string', 'max:1000'],
+]);
+
+$register = function () {
+    $validated = $this->validate();
+
+    $validated['password'] = Hash::make($validated['password']);
+
+    event(new Registered($user = User::create($validated)));
+
+    Auth::login($user);
+
+    $this->redirect(route('dashboard', absolute: false), navigate: true);
+};
 
 rules([
     'name' => ['required', 'string', 'max:255'],
     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
     'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
     'role' => ['required', 'string', 'in:teacher,cluster_leader,headteacher,ministry_official'],
+    'school_id' => ['required_if:role,headteacher', 'nullable', 'exists:schools,id'],
+    'verification_info' => ['required_if:role,headteacher', 'nullable', 'string', 'max:1000'],
 ]);
 
 $register = function () {
@@ -87,6 +116,43 @@ $register = function () {
 
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>
+
+        @if($this->role === 'headteacher')
+            <div class="mt-4">
+                <x-input-label for="school_id" :value="__('School')" />
+
+                <select wire:model="school_id" id="school_id" name="school_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
+                    <option value="">Select School</option>
+                    @foreach($this->schools as $school)
+                        <option value="{{ $school->id }}">
+                            {{ $school->name }}
+                            @if($school->region || $school->district)
+                                — {{ $school->region ?? '' }}{{ $school->region && $school->district ? ' / ' : '' }}{{ $school->district ?? '' }}
+                            @endif
+                            @if($school->school_type)
+                                · {{ $school->school_type }}
+                            @endif
+                            @if($school->gender)
+                                · {{ $school->gender }}
+                            @endif
+                            @if($school->ownership)
+                                · {{ $school->ownership }}
+                            @endif
+                        </option>
+                    @endforeach
+                </select>
+
+                <x-input-error :messages="$errors->get('school_id')" class="mt-2" />
+            </div>
+
+            <div class="mt-4">
+                <x-input-label for="verification_info" :value="__('Verification Information')" />
+
+                <textarea wire:model="verification_info" id="verification_info" name="verification_info" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white" rows="4" placeholder="Enter credential verification details such as name of the school, district office, or registration number."></textarea>
+
+                <x-input-error :messages="$errors->get('verification_info')" class="mt-2" />
+            </div>
+        @endif
 
         <!-- Confirm Password -->
         <div class="mt-4">

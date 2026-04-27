@@ -1,0 +1,53 @@
+name	region	district	type	gender	ownership	source
+Lilongwe Secondary School 1	Central	Lilongwe	Day	Co-ed	Government	synthetic
+Lilongwe Secondary School 2	Central	Lilongwe	Boarding	Co-ed	Government	synthetic
+Lilongwe Secondary School 3	Central	Lilongwe	CDSS	Co-ed	Government	synthetic
+Ntcheu Secondary School 4	Central	Ntcheu	Day	Co-ed	Government	synthetic
+Ntcheu Secondary School 5	Central	Ntcheu	Boarding	Co-ed	Government	synthetic
+Ntcheu Secondary School 6	Central	Ntcheu	CDSS	Co-ed	Government	synthetic
+Salima Secondary School 7	Central	Salima	Day	Co-ed	Government	synthetic
+Salima Secondary School 8	Central	Salima	Boarding	Co-ed	Government	synthetic
+Salima Secondary School 9	Central	Salima	CDSS	Co-ed	Government	synthetic
+Kasungu Secondary School 10	Central	Kasungu	Day	Co-ed	Government	synthetic
+Kasungu Secondary School 11	Central	Kasungu	Boarding	Co-ed	Government	synthetic
+Kasungu Secondary School 12	Central	Kasungu	CDSS	Co-ed	Government	synthetic
+Mchinji Secondary School 13	Central	Mchinji	Day	Co-ed	Government	synthetic
+Mchinji Secondary School 14	Central	Mchinji	Boarding	Co-ed	Government	synthetic
+Mchinji Secondary School 15	Central	Mchinji	CDSS	Co-ed	Government	synthetic
+Blantyre Secondary School 16	Southern	Blantyre	Day	Co-ed	Government	synthetic
+Blantyre Secondary School 17	Southern	Blantyre	Boarding	Co-ed	Government	synthetic
+Blantyre Secondary School 18	Southern	Blantyre	CDSS	Co-ed	Government	synthetic
+Chikwawa Secondary School 19	Southern	Chikwawa	Day	Co-ed	Government	synthetic
+Chikwawa Secondary School 20	Southern	Chikwawa	Boarding	Co-ed	Government	synthetic
+Chikwawa Secondary School 21	Southern	Chikwawa	CDSS	Co-ed	Government	synthetic
+Nsanje Secondary School 22	Southern	Nsanje	Day	Co-ed	Government	synthetic
+Nsanje Secondary School 23	Southern	Nsanje	Boarding	Co-ed	Government	synthetic
+Nsanje Secondary School 24	Southern	Nsanje	CDSS	Co-ed	Government	synthetic
+Zomba Secondary School 25	Southern	Zomba	Day	Co-ed	Government	synthetic
+Zomba Secondary School 26	Southern	Zomba	Boarding	Co-ed	Government	synthetic
+Zomba Secondary School 27	Southern	Zomba	CDSS	Co-ed	Government	synthetic
+Phalombe Secondary School 28	Southern	Phalombe	Day	Co-ed	Government	synthetic
+Phalombe Secondary School 29	Southern	Phalombe	Boarding	Co-ed	Government	synthetic
+Phalombe Secondary School 30	Southern	Phalombe	CDSS	Co-ed	Government	synthetic
+Mzimba Secondary School 31	Northern	Mzimba	Day	Co-ed	Government	synthetic
+Mzimba Secondary School 32	Northern	Mzimba	Boarding	Co-ed	Government	synthetic
+Mzimba Secondary School 33	Northern	Mzimba	CDSS	Co-ed	Government	synthetic
+Nkhata Bay Secondary School 34	Northern	Nkhata Bay	Day	Co-ed	Government	synthetic
+Nkhata Bay Secondary School 35	Northern	Nkhata Bay	Boarding	Co-ed	Government	synthetic
+Nkhata Bay Secondary School 36	Northern	Nkhata Bay	CDSS	Co-ed	Government	synthetic
+Rumphi Secondary School 37	Northern	Rumphi	Day	Co-ed	Government	synthetic
+Rumphi Secondary School 38	Northern	Rumphi	Boarding	Co-ed	Government	synthetic
+Rumphi Secondary School 39	Northern	Rumphi	CDSS	Co-ed	Government	synthetic
+Chitipa Secondary School 40	Northern	Chitipa	Day	Co-ed	Government	synthetic
+Chitipa Secondary School 41	Northern	Chitipa	Boarding	Co-ed	Government	synthetic
+Chitipa Secondary School 42	Northern	Chitipa	CDSS	Co-ed	Government	synthetic
+Kamuzu Academy	Central	Kasungu	Boarding	Co-ed	Private	seed
+Likuni Boys Secondary School	Central	Lilongwe	Boarding	Boys	Mission	seed
+St Mary's Secondary School	Southern	Zomba	Boarding	Girls	Mission	seed
+Blantyre Secondary School	Southern	Blantyre	Day	Co-ed	Government	seed
+Mzuzu Government Secondary School	Northern	Mzimba	Day	Co-ed	Government	seed
+Mangochi Secondary School	Southern	Mangochi	Day	Co-ed	Government	seed
+Dedza Secondary School	Central	Dedza	Day	Co-ed	Government	seed
+Nkhotakota Secondary School	Central	Nkhotakota	Day	Co-ed	Government	seed
+Karonga Secondary School	Northern	Karonga	Day	Co-ed	Government	seed
+Balaka Secondary School	Southern	Balaka	Day	Co-ed	Government	seed
